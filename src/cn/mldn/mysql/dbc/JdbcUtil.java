@@ -16,9 +16,9 @@ public class JdbcUtil {
 	private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 	private static final String URL = "jdbc:mysql://127.0.0.1:3306/website?characterEncoding=UTF-8&"
 			+ "useSSL=true&serverTimezone=Asia/Shanghai";
-	// characterEncoding=gbk ÎªÖ¸¶¨Êı¾İ¿âÁ¬½ÓµÄ±àÂë¸ñÊ½£¬·ÀÖ¹Ğ´ÈëÊ±ÖĞÎÄÂÒÂë
+	// characterEncoding=gbk ä¸ºæŒ‡å®šæ•°æ®åº“è¿æ¥çš„ç¼–ç æ ¼å¼ï¼Œé˜²æ­¢å†™å…¥æ—¶ä¸­æ–‡ä¹±ç 
 	private static final String USER = "root";
-	private static final String PASSWORD = "qrh20000116";
+	private static final String PASSWORD = "";
 	private static Connection connection = null;
 
 	public static Connection getConnection() {
@@ -38,11 +38,11 @@ public class JdbcUtil {
 	
 	
 		
-		// ¶Ï¿ªÁ¬½Ó
+		// æ–­å¼€è¿æ¥
 		
 		public static void closeConnection(Connection con, Statement st, PreparedStatement ps, ResultSet rs) {
 			try {	
-				if(rs != null)   // ±ÜÃâ¿Õ(null)Ö¸ÏòÒì³£
+				if(rs != null)   // é¿å…ç©º(null)æŒ‡å‘å¼‚å¸¸
 					rs.close();
 			} catch(SQLException e) {
 				e.printStackTrace();
@@ -76,7 +76,7 @@ public class JdbcUtil {
 				try {
 					rs.close();
 				} catch (SQLException e) {
-					System.out.println("JdbcUtilÖĞµÄcloseConnection(PreparedStatement ps, ResultSet rs)³ö´íÁË");
+					System.out.println("JdbcUtilä¸­çš„closeConnection(PreparedStatement ps, ResultSet rs)å‡ºé”™äº†");
 					e.printStackTrace();
 				}finally {
 					if(ps != null)
@@ -96,7 +96,7 @@ public class JdbcUtil {
 		}	
 			
 		
-		// Ô¤´¦Àí     »ñÈ¡PreparedStatementÖµ
+		// é¢„å¤„ç†     è·å–PreparedStatementå€¼
 	
 		public static PreparedStatement getPreparedStatement(String sql, Object...objects) {
 			PreparedStatement ps = null;
@@ -107,7 +107,7 @@ public class JdbcUtil {
 					ps.setObject(i+1,objects[i]);
 				}
 			} catch (SQLException e) {
-				System.out.println("JdbcUtilÖĞgetPreparedStatement(String sql, Object...objects)³öÎÊÌâÁË");
+				System.out.println("JdbcUtilä¸­getPreparedStatement(String sql, Object...objects)å‡ºé—®é¢˜äº†");
 				e.printStackTrace();
 			}
 			return ps;
@@ -116,7 +116,7 @@ public class JdbcUtil {
 		
 		/*
 		 * 	CallableStatement
-		 * 	Ö´ĞĞ´øÓĞÊä³ö²ÎÊı£¨out£©µÄ´æ´¢¹ı³Ì
+		 * 	æ‰§è¡Œå¸¦æœ‰è¾“å‡ºå‚æ•°ï¼ˆoutï¼‰çš„å­˜å‚¨è¿‡ç¨‹
 		 */
 		public static  CallableStatement getPreparedStatementCall(String sql, Object...objects) {
 			CallableStatement ps = null;
@@ -128,14 +128,14 @@ public class JdbcUtil {
 				}
 				ps.registerOutParameter(objects.length+1, java.sql.Types.VARCHAR);
 			} catch (SQLException e) {
-				System.out.println("jdbcUtil.javaÖĞgetPreparedStatementCall³öÏÖÒì³£");
+				System.out.println("jdbcUtil.javaä¸­getPreparedStatementCallå‡ºç°å¼‚å¸¸");
 				e.printStackTrace();
 			}
 			return ps;
 		}		
 	
 		
-		//  Ìí¼ÓÓÃ»§ĞÅÏ¢£¬·µ»Ø¸ÃÓÃ»§ĞÅÏ¢
+		//  æ·»åŠ ç”¨æˆ·ä¿¡æ¯ï¼Œè¿”å›è¯¥ç”¨æˆ·ä¿¡æ¯
 		
 		public static Userinfo addUserinfo(ResultSet rs, Userinfo userinfo) {
 			try {
@@ -148,13 +148,13 @@ public class JdbcUtil {
 				}
 			}catch(SQLException e) {
 				e.printStackTrace();
-				System.out.println("JdbcUtilÖĞaddUserinfo(ResultSet rs, Userinfo userinfo)³ö´íÁË");
+				System.out.println("JdbcUtilä¸­addUserinfo(ResultSet rs, Userinfo userinfo)å‡ºé”™äº†");
 			}
 			return userinfo;
 		}
 		
 		
-		// ½«sqlÓï¾äÌí¼Óµ½ÈÕÖ¾ÎÄ¼ş±íÖĞ
+		// å°†sqlè¯­å¥æ·»åŠ åˆ°æ—¥å¿—æ–‡ä»¶è¡¨ä¸­
 		
 		public static boolean journalFile(String objects) {
 			boolean flag = false;
@@ -171,7 +171,7 @@ public class JdbcUtil {
 					try {
 						ps.close();
 					} catch (SQLException e) {
-						System.out.println("JdbcUtilÖĞjournalFile(String objects³ö´íÁË");
+						System.out.println("JdbcUtilä¸­journalFile(String objectså‡ºé”™äº†");
 						e.printStackTrace();
 					}
 			}
